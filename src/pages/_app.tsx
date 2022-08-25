@@ -2,6 +2,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import { CustomFonts } from "styles/globalFonts";
+import CommonLayout from "layout/CommonLayout";
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>
@@ -17,17 +18,8 @@ const App = ({ Component, pageProps }: AppProps) => (
         colorScheme: "light",
         colors: {
           // Add your color
-          deepBlue: [
-            "#D5F1F6",
-            "#A6E3ED",
-            "#7ED9E7",
-            "#52CDE0",
-            "#1EBAD2",
-            "#1FA8BD",
-            "#2095A7",
-            "#217E8C",
-            "#23707B",
-          ],
+          deepBlue: ["#285BA9"],
+          deepGray: ["#F9F9F9", "#F8F8F8", "#E4E4E4"],
         },
 
         shadows: {
@@ -47,7 +39,9 @@ const App = ({ Component, pageProps }: AppProps) => (
       }}
     >
       <CustomFonts />
-      <Component {...pageProps} />
+      <CommonLayout>
+        <Component {...pageProps} />
+      </CommonLayout>
     </MantineProvider>
   </>
 );
