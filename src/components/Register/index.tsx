@@ -19,6 +19,9 @@ import { apiAxios } from "utils/commonAxios";
 import { yearMonthDay } from "utils/date";
 
 export default function Register() {
+  const [nowLat] = useState(33.450701);
+  const [nowLon] = useState(126.570667);
+
   const theme = useTheme();
 
   const AttachBtn = styled.button`
@@ -45,9 +48,6 @@ export default function Register() {
   const [contents, setContents] = useState<string>("");
   const [date, setDate] = useState<Date | null>(new Date());
 
-  const longitude = "126.570667";
-  const latitude = "33.450701";
-
   const handleTitle = (e: FormEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
   };
@@ -66,8 +66,8 @@ export default function Register() {
       const res = await apiAxios.post("/boards/register", {
         title,
         address: address,
-        lat: latitude,
-        lng: longitude,
+        lat: nowLat,
+        lng: nowLon,
         situation: contents,
         discovery: date,
         like: 0,
@@ -96,11 +96,11 @@ export default function Register() {
     }
   }, []);
 
-  const getAddress = async () => {
-    try {
-      await axios
+  useEffect(() => {
+    const getAddress = (latitude: any, longitude: any) => {
+      axios
         .get(
-          `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${longitude}&y=${latitude}`,
+          `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${latitude}&y=${latitude}`,
           {
             headers: {
               Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAOMAP_REST_API_APPKEY}`, // REST API 키
@@ -109,16 +109,24 @@ export default function Register() {
         )
         .then((res) => {
           const location = res.data.documents[0];
+          console.log("location : ", location);
           setAddress(location.road_address.address_name);
         });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+        const lat = position.coords.latitude; // 위도
+        const lon = position.coords.longitude; // 경도
 
-  useEffect(() => {
-    getAddress();
-  }, []);
+        console.log("lat : ", lat);
+        console.log("lon : ", lon);
+        getAddress(lat, lon);
+        // setNowLat(lat);
+        // setNowLon(lon);
+        console.log(lat, lon);
+      });
+    }
+  }, [nowLat, nowLon]);
 
   return (
     <>
