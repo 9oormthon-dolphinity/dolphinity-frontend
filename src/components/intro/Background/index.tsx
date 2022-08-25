@@ -1,9 +1,13 @@
 import Image from "components/Image";
 
-const Background = () => {
+interface Props {
+  src: string;
+}
+
+const Background = ({ src }: Props) => {
   return (
     <Image
-      src="/IntroImage.png"
+      src={src}
       alt="intro"
       layout="fill"
       objectFit="cover"

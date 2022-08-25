@@ -47,4 +47,5 @@ export const TypographyLayout = styled.h3<TypographyLayoutProps>`
     css`
       line-height: ${lineHeight}px;
     `};
+  z-index: 99;
 `;
