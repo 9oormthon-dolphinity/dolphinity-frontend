@@ -25,6 +25,9 @@ const CustomInput = styled.input`
   &:focus {
     outline: none;
   }
+  &::placeholder {
+    color: white;
+  }
 `;
 
 const PostCommentInput = () => {
@@ -36,8 +39,10 @@ const PostCommentInput = () => {
       alert("댓글 내용을 입력하세요.");
       return;
     }
-    apiAxios.post("/reviews/add", { content: input, id });
-  }, [input, id]);
+    apiAxios.post("/reviews/add", { content: input, id }).then(() => {
+      router.reload();
+    });
+  }, [input, id, router]);
   return (
     <CustomInputWrapper>
       <CustomInput

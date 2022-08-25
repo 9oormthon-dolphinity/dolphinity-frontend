@@ -8,7 +8,7 @@ const PostAlbum = () => {
   return (
     <Carousel sx={{ width: "100%", borderRadius: "20px" }} withIndicators height={360}>
       <Carousel.Slide>
-        <Image src={img || "/example.png"} alt="album" layout="fill" objectFit="cover" />
+        <Image src={img || "/example.png"} alt="album" layout="fill" objectFit="cover" blur />
       </Carousel.Slide>
     </Carousel>
   );
