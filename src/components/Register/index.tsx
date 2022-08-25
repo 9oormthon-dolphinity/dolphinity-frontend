@@ -16,32 +16,33 @@ import {
   TopDiv,
 } from "./styles";
 import { apiAxios } from "utils/commonAxios";
-import { yearMonthDay } from "utils/date";
+import { useRouter } from "next/router";
+
+const AttachBtn = styled.button`
+  width: 47px;
+  height: 47px;
+  margin-top: 10px;
+  border-radius: 17px;
+  border: none;
+  line-height: 68px;
+  cursor: pointer;
+
+  svg {
+    color: white;
+    background-color: ${({ theme }) => theme.colors.deepBlue[0]}
+    border-radius: 20px;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+  }
+`;
 
 export default function Register() {
-  const [nowLat] = useState(33.450701);
-  const [nowLon] = useState(126.570667);
-
+  const [nowLat] = useState(33.4501317);
+  const [nowLon] = useState(126.9182933);
+  const router = useRouter();
   const theme = useTheme();
 
-  const AttachBtn = styled.button`
-    width: 47px;
-    height: 47px;
-    margin-top: 10px;
-    border-radius: 17px;
-    border: none;
-    line-height: 68px;
-    cursor: pointer;
-
-    svg {
-      color: white;
-      background-color: ${theme.colors.deepBlue[0]};
-      border-radius: 20px;
-      width: 32px;
-      height: 32px;
-      padding: 8px;
-    }
-  `;
   const [address, setAddress] = useState<string>("");
 
   const [title, setTitle] = useState<string>("");
@@ -57,13 +58,8 @@ export default function Register() {
   };
 
   const handleClickSubmitBtn = async (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(title);
-    console.log(contents);
-    console.log(address);
-    console.log(yearMonthDay(String(date)));
-
     try {
-      const res = await apiAxios.post("/boards/register", {
+      await apiAxios.post("/boards/register", {
         title,
         address: address,
         lat: nowLat,
@@ -72,7 +68,7 @@ export default function Register() {
         discovery: date,
         like: 0,
       });
-      console.log("res : ", res);
+      router.reload();
     } catch (err) {
       console.log("err : ", err);
     }
@@ -97,35 +93,19 @@ export default function Register() {
   }, []);
 
   useEffect(() => {
-    const getAddress = (latitude: any, longitude: any) => {
-      axios
-        .get(
-          `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${latitude}&y=${latitude}`,
-          {
-            headers: {
-              Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAOMAP_REST_API_APPKEY}`, // REST API 키
-            },
-          }
-        )
-        .then((res) => {
-          const location = res.data.documents[0];
-          console.log("location : ", location);
-          setAddress(location.road_address.address_name);
-        });
-    };
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position) {
-        const lat = position.coords.latitude; // 위도
-        const lon = position.coords.longitude; // 경도
-
-        console.log("lat : ", lat);
-        console.log("lon : ", lon);
-        getAddress(lat, lon);
-        // setNowLat(lat);
-        // setNowLon(lon);
-        console.log(lat, lon);
+    axios
+      .get(
+        `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${nowLon}&y=${nowLat}`,
+        {
+          headers: {
+            Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAOMAP_REST_API_APPKEY}`, // REST API 키
+          },
+        }
+      )
+      .then((res) => {
+        const location = res.data.documents[0];
+        setAddress(location.road_address.address_name);
       });
-    }
   }, [nowLat, nowLon]);
 
   return (

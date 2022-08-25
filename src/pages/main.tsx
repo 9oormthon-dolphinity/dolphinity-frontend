@@ -51,6 +51,7 @@ const Main = ({ pins }: Props) => {
         const lon = position.coords.longitude; // 경도
         setNowLat(lat);
         setNowLon(lon);
+        console.log(lat, lon);
       });
     }
   }, []);
