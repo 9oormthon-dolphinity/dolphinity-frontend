@@ -1,6 +1,6 @@
-import Image from "components/Image";
 import { IconBellPlus, Icon3dCubeSphere, IconAccessible, IconAlertTriangle } from "@tabler/icons";
 import FloatingButton from "components/FloatingButton";
+import KakaoMap from "components/KakaoMap";
 
 const actions = [
   { label: "About", icon: <IconBellPlus />, onClick: console.log },
@@ -12,9 +12,8 @@ const actions = [
 const Main = () => {
   return (
     <div style={{ width: "400px", height: "600px", position: "relative" }}>
+      <KakaoMap latitude={33.450701} longitude={126.570667} />
       <FloatingButton actions={actions} />
-      {/* <KakaoMap latitude={33.450701} longitude={126.570667} /> */}
-      {/* <Image src="/map.png" alt="카카오 지도" layout="fill" /> */}
     </div>
   );
 };

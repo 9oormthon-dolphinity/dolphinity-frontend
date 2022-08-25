@@ -3,22 +3,26 @@ import styled from "@emotion/styled";
 import { TypographyProps } from ".";
 
 const h1Style = (theme: Theme) => css`
-  font-size: ${theme.typography.h1.fontSize};
-  line-height: ${theme.typography.h1.lineHeight};
+  font-size: ${theme.headings.sizes.h1.fontSize}px;
+  line-height: ${theme.headings.sizes.h1.lineHeight}px;
+  margin: 0px;
 `;
 const h2Style = (theme: Theme) => css`
-  font-size: ${theme.typography.h2.fontSize};
-  line-height: ${theme.typography.h2.lineHeight};
+  font-size: ${theme.headings.sizes.h2.fontSize}px;
+  line-height: ${theme.headings.sizes.h2.lineHeight}px;
+  margin: 0px;
 `;
 
 const h3Style = (theme: Theme) => css`
-  font-size: ${theme.typography.h3.fontSize};
-  line-height: ${theme.typography.h3.lineHeight};
+  font-size: ${theme.headings.sizes.h3.fontSize}px;
+  line-height: ${theme.headings.sizes.h3.lineHeight}px;
+  margin: 0px;
 `;
 
 const paragraphStyle = (theme: Theme) => css`
-  font-size: ${theme.typography.paragraph.fontSize};
-  line-height: ${theme.typography.paragraph.lineHeight};
+  font-size: ${theme.headings.sizes.h5.fontSize}px;
+  line-height: ${theme.headings.sizes.h5.lineHeight}px;
+  margin: 0px;
 `;
 
 interface TypographyLayoutProps extends TypographyProps {}

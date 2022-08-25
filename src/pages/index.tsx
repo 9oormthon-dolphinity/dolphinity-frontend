@@ -15,18 +15,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Title title="NextJS TypeScript Template" />
-      <Typography variant="h1" color={theme.colors.cyan[200]}>
-        cyan 200
+      <Typography variant="h1" color={theme.colors.deepBlue[1]}>
+        deepBlue 1
       </Typography>
-      <Typography variant="h1" color={theme.colors.cyan[400]}>
-        cyan 400
+      <Typography variant="h1" color={theme.colors.deepBlue[5]}>
+        deepBlue 5
       </Typography>
-      <Typography variant="h1" color={theme.colors.cyan[600]}>
-        cyan 600
+      <Typography variant="h1" color={theme.colors.deepBlue[8]}>
+        deepBlue 8
       </Typography>
       <Typography variant="h1">h1</Typography>
       <Typography variant="h2">h2</Typography>
-      <Typography variant="paragraph" color={theme.colors.cyan[700]}>
+      <Typography variant="paragraph" color={theme.colors.deepBlue[1]}>
         paragraph
       </Typography>
 
