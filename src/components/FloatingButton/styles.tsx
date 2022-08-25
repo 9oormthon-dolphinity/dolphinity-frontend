@@ -11,7 +11,7 @@ const FabContainer = styled.ul<{ open: boolean }>`
   right: 2em;
   bottom: 2em;
   max-height: ${({ open }) => (open ? "max-content" : "52px")};
-
+  z-index: 999;
   li {
     border-radius: 50%;
     box-shadow: 0 3px 6px lightgrey;
@@ -26,7 +26,7 @@ const FabContainer = styled.ul<{ open: boolean }>`
 `;
 
 const FabButton = styled.li<{ open: boolean }>`
-  background-color: #00a8ff;
+  background-color: ${({ theme }) => theme.colors.deepBlue[0]};
   transition: all ease 0.3s;
   ${({ open }) =>
     open &&
@@ -61,6 +61,7 @@ const FabAction = styled.li<{ open: boolean }>`
   transform: translateY(50px) scale(0);
   transition: transform 300ms, opacity 300ms;
   opacity: 0;
+  background-color: white;
 
   &:hover {
     ${FabTooltip} {

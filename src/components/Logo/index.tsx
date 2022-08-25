@@ -7,10 +7,14 @@ const LogoWrapper = styled.div`
   line-height: 1;
 `;
 
-const Logo = () => {
+interface Props {
+  src: string;
+}
+
+const Logo = ({ src }: Props) => {
   return (
     <LogoWrapper>
-      <Image src="/dolfinity.svg" alt="logo" width="180px" height="18px" priority />
+      <Image src={src} alt="logo" width="180px" height="18px" priority />
     </LogoWrapper>
   );
 };

@@ -7,7 +7,7 @@ const IntroHeader = () => {
   return (
     <div style={{ marginTop: "80px" }}>
       <div style={{ marginBottom: "10px" }}>
-        <Logo />
+        <Logo src="/dolfinity.svg" />
       </div>
       <Typography variant="h2" color={theme.colors.deepBlue[0]} weight={300}>
         제주 남방큰돌고래

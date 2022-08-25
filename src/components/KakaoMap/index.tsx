@@ -30,8 +30,6 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
   const theme = useTheme();
   const [mapLevel, setMapLevel] = useState(10);
 
-  console.log(pins);
-
   const ModalDataIcon = styled.div`
     font-size: 11px;
     margin: 8px 4px 0 0;
@@ -79,7 +77,6 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
             const moveLatLon = new window.kakao.maps.LatLng(pins[i].lat, pins[i].lng);
             map.panTo(moveLatLon);
             setOpened(true);
-            console.log(i);
           });
         }
       });
