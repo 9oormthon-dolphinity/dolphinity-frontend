@@ -1,15 +1,15 @@
-import { css, Global } from "@emotion/react";
-import emotionReset from "emotion-reset";
+import { Global } from "@mantine/core";
 
 export const globalStyles = (
   <Global
-    styles={css`
-      ${emotionReset}
-      *, *::after, *::before {
-        box-sizing: border-box;
-      }
-
-      // 이후 필요한 전역 스타일링 속성 추가
-    `}
+    styles={(theme) => ({
+      "*, *::before, *::after": {
+        boxSizing: "border-box",
+      },
+      body: {
+        margin: 0,
+        fontFamily: "'Noto Sans KR', sans-serif",
+      },
+    })}
   />
 );
