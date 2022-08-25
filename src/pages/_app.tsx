@@ -30,10 +30,10 @@ const App = ({ Component, pageProps }: AppProps) => (
         headings: {
           fontFamily: "Noto Sans KR",
           sizes: {
-            h1: { fontSize: 38, lineHeight: 57 },
-            h2: { fontSize: 32, lineHeight: 48 },
-            h3: { fontSize: 24, lineHeight: 36 },
-            h5: { fontSize: 14, lineHeight: 22 },
+            h1: { fontSize: 38, lineHeight: 48 },
+            h2: { fontSize: 32, lineHeight: 36 },
+            h3: { fontSize: 24, lineHeight: 24 },
+            h5: { fontSize: 14, lineHeight: 12 },
           },
         },
       }}
