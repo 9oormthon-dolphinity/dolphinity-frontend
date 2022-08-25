@@ -1,16 +1,16 @@
 import Typography from "components/Typography";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ClockLine, ClockWrapper } from "./styles";
 import { useTheme } from "@emotion/react";
-
-let intervalId: any = null;
 
 const Clock = () => {
   const [timeStamp, setTimeStamp] = useState<string>("00:00");
   const theme = useTheme();
+  const firstRef = useRef(false);
   useEffect(() => {
-    if (!intervalId) {
-      intervalId = setInterval(() => {
+    if (!firstRef.current) {
+      firstRef.current = true;
+      setInterval(() => {
         const date = new Date();
         const hours = ("0" + date.getHours()).slice(-2);
         const minutes = ("0" + date.getMinutes()).slice(-2);
