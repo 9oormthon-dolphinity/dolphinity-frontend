@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { TypographyLayout } from "./styles";
 
 export interface TypographyProps extends HTMLAttributes<HTMLHeadingElement> {
-  variant?: "h1" | "h2" | "h3" | "paragraph";
+  variant?: "h1" | "h2" | "h3" | "paragraph" | "paragraph2";
   color?: string | undefined;
   weight?: number;
 }
