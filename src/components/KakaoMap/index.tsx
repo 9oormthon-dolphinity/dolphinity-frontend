@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { MouseEvent, useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
 import { AiFillHeart } from "react-icons/ai";
-import { BsFillChatTextFill } from "react-icons/bs";
-import { IconPlus, IconMinus } from "@tabler/icons";
+import { IconPlus, IconMinus, IconCurrentLocation } from "@tabler/icons";
+import Image from "components/Image";
 
 import {
   EditModal,
@@ -13,11 +13,11 @@ import {
   ModalBottomData,
   ModalContents,
   ModalDetailBtn,
-  ModalImage,
   ModalTitle,
 } from "./styles";
 import Typography from "components/Typography";
 import { Ping } from "types/api";
+import { useRouter } from "next/router";
 
 export interface MapProps {
   latitude: number;
@@ -29,6 +29,10 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
   const [opened, setOpened] = useState(false);
   const theme = useTheme();
   const [mapLevel, setMapLevel] = useState(10);
+  const [pinData, setPinData] = useState<Ping>();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const router = useRouter();
 
   const ModalDataIcon = styled.div`
     font-size: 11px;
@@ -55,6 +59,7 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
     document.head.appendChild(mapScript);
 
     const onLoadKakaoMap = () => {
+      setIsLoading(false);
       window.kakao.maps.load(() => {
         const container = document.getElementById("map");
         const options = {
@@ -62,6 +67,12 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
           level: mapLevel,
         };
         const map = new window.kakao.maps.Map(container, options);
+
+        const moveBtn = document.getElementById("moveBtn");
+        moveBtn?.addEventListener("click", function (event) {
+          const moveLatLon = new window.kakao.maps.LatLng(latitude, longitude);
+          map.panTo(moveLatLon);
+        });
 
         for (let i = 0; i < pins.length; i++) {
           // 마커를 생성합니다
@@ -77,6 +88,7 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
             const moveLatLon = new window.kakao.maps.LatLng(pins[i].lat, pins[i].lng);
             map.panTo(moveLatLon);
             setOpened(true);
+            setPinData(pins[i]);
           });
         }
       });
@@ -87,55 +99,71 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
   }, [longitude, latitude, mapLevel, pins]);
 
   return (
-    <MapContainer id="map">
-      <div style={{ position: "absolute", zIndex: "5" }}>
-        <button type="button" data-zoom={+1} onClick={zoomInOut}>
-          <IconMinus />
-        </button>
-        <button type="button" data-zoom={-1} onClick={zoomInOut}>
-          <IconPlus />
-        </button>
-        <button type="button">현위치</button>
-      </div>
-      <EditModal
-        centered
-        size={194}
-        opened={opened}
-        withCloseButton={false}
-        onClose={() => setOpened(false)}
-      >
-        <ModalImage>이미지</ModalImage>
-        <ModalContents>
-          <ModalTitle>title</ModalTitle>
-          <ModalAddress>address</ModalAddress>
-          <ModalBottom>
-            <ModalBottomData>
-              <ModalDataIcon>
-                {/* <IconHeart size={12} color={theme.colors.deepBlue[0]} /> */}
-                <AiFillHeart
-                  color={theme.colors.deepBlue[0]}
-                  size={11}
-                  style={{ marginRight: "2px" }}
-                />
-                <Typography variant="paragraph2" color={theme.colors.deepBlue[0]} weight={300}>
-                  312
-                </Typography>
-              </ModalDataIcon>
-              <ModalDataIcon>
-                <BsFillChatTextFill
-                  color={theme.colors.deepBlue[0]}
-                  size={11}
-                  style={{ marginRight: "2px" }}
-                />
-                <Typography variant="paragraph2" color={theme.colors.deepBlue[0]} weight={300}>
-                  댓글
-                </Typography>
-              </ModalDataIcon>
-            </ModalBottomData>
-            <ModalDetailBtn type="button">자세히보기</ModalDetailBtn>
-          </ModalBottom>
-        </ModalContents>
-      </EditModal>
-    </MapContainer>
+    <>
+      {isLoading ? (
+        <div
+          style={{
+            width: "500px",
+            height: "700px",
+            position: "relative",
+          }}
+        >
+          {/* <EditOverlay visible={true} /> */}
+        </div>
+      ) : (
+        <MapContainer id="map">
+          <div style={{ position: "absolute", zIndex: "5", bottom: "10px", left: "10px" }}>
+            <button type="button" data-zoom={+1} onClick={zoomInOut}>
+              <IconMinus />
+            </button>
+            <button type="button" data-zoom={-1} onClick={zoomInOut}>
+              <IconPlus />
+            </button>
+            <button type="button" id="moveBtn">
+              <IconCurrentLocation />
+            </button>
+          </div>
+          <EditModal
+            centered
+            size={300}
+            opened={opened}
+            withCloseButton={false}
+            onClose={() => setOpened(false)}
+          >
+            <div style={{ width: "100%", height: "160px", position: "relative" }}>
+              <Image
+                src={pinData?.img as string}
+                alt="dolphin image"
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+                style={{ filter: "brightness(85%)" }}
+              />
+            </div>
+            <ModalContents>
+              <ModalTitle>{pinData?.title}</ModalTitle>
+              <ModalAddress>{pinData?.address}</ModalAddress>
+              <ModalBottom>
+                <ModalBottomData>
+                  <ModalDataIcon>
+                    <AiFillHeart
+                      color={theme.colors.deepBlue[0]}
+                      size={14}
+                      style={{ marginRight: "2px" }}
+                    />
+                    <Typography variant="paragraph" color={theme.colors.deepBlue[0]} weight={400}>
+                      {pinData?.like}
+                    </Typography>
+                  </ModalDataIcon>
+                </ModalBottomData>
+                <ModalDetailBtn type="button" onClick={() => router.push(`post/${pinData?.id}`)}>
+                  자세히보기
+                </ModalDetailBtn>
+              </ModalBottom>
+            </ModalContents>
+          </EditModal>
+        </MapContainer>
+      )}
+    </>
   );
 }

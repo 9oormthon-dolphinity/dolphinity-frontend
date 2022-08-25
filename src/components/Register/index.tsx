@@ -16,8 +16,12 @@ import {
   TopDiv,
 } from "./styles";
 import { apiAxios } from "utils/commonAxios";
+import { yearMonthDay } from "utils/date";
 
 export default function Register() {
+  const [nowLat] = useState(33.450701);
+  const [nowLon] = useState(126.570667);
+
   const theme = useTheme();
 
   const AttachBtn = styled.button`
@@ -44,9 +48,6 @@ export default function Register() {
   const [contents, setContents] = useState<string>("");
   const [date, setDate] = useState<Date | null>(new Date());
 
-  const longitude = "126.570667";
-  const latitude = "33.450701";
-
   const handleTitle = (e: FormEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
   };
@@ -59,7 +60,22 @@ export default function Register() {
     console.log(title);
     console.log(contents);
     console.log(address);
-    console.log(date);
+    console.log(yearMonthDay(String(date)));
+
+    try {
+      const res = await apiAxios.post("/boards/register", {
+        title,
+        address: address,
+        lat: nowLat,
+        lng: nowLon,
+        situation: contents,
+        discovery: date,
+        like: 0,
+      });
+      console.log("res : ", res);
+    } catch (err) {
+      console.log("err : ", err);
+    }
   };
 
   const onUploadImage = useCallback(async (file: File | null) => {
@@ -68,15 +84,7 @@ export default function Register() {
     }
 
     const formData = new FormData();
-    formData.append("file", file);
-
-    console.log("formData : ");
-    for (const key of formData.keys()) {
-      console.log("key : ", key);
-    }
-    for (const value of formData.values()) {
-      console.log("value : ", value);
-    }
+    formData.append("image", file);
     try {
       const res = await apiAxios.post("/boards/upload", formData, {
         headers: { "Content-Type": "multipart/form-data", "Access-Control-Allow-Origin": "*" },
@@ -88,11 +96,11 @@ export default function Register() {
     }
   }, []);
 
-  const getAddress = async () => {
-    try {
-      await axios
+  useEffect(() => {
+    const getAddress = (latitude: any, longitude: any) => {
+      axios
         .get(
-          `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${longitude}&y=${latitude}`,
+          `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${latitude}&y=${latitude}`,
           {
             headers: {
               Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAOMAP_REST_API_APPKEY}`, // REST API 키
@@ -101,16 +109,24 @@ export default function Register() {
         )
         .then((res) => {
           const location = res.data.documents[0];
+          console.log("location : ", location);
           setAddress(location.road_address.address_name);
         });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+        const lat = position.coords.latitude; // 위도
+        const lon = position.coords.longitude; // 경도
 
-  useEffect(() => {
-    getAddress();
-  }, []);
+        console.log("lat : ", lat);
+        console.log("lon : ", lon);
+        getAddress(lat, lon);
+        // setNowLat(lat);
+        // setNowLon(lon);
+        console.log(lat, lon);
+      });
+    }
+  }, [nowLat, nowLon]);
 
   return (
     <>
