@@ -5,9 +5,10 @@ import { css } from "@emotion/react";
 interface Props {
   children: ReactNode;
   center?: boolean;
+  noPadding?: boolean;
 }
 
-const PageStyle = styled.div<{ center: boolean }>`
+const PageStyle = styled.div<{ center: boolean; noPadding: boolean }>`
   display: flex;
   flex-direction: column;
   ${({ center }) =>
@@ -19,14 +20,22 @@ const PageStyle = styled.div<{ center: boolean }>`
   width: 400px;
   min-height: 100vh;
   position: relative;
-  padding: 0px 25px;
+  ${({ noPadding }) =>
+    !noPadding &&
+    css`
+      padding: 0px 25px;
+    `}
   @media (max-width: 400px) {
     width: 100%;
   }
 `;
 
-const PageLayout = ({ children, center = true }: Props) => {
-  return <PageStyle center={center}>{children}</PageStyle>;
+const PageLayout = ({ children, center = true, noPadding = false }: Props) => {
+  return (
+    <PageStyle center={center} noPadding={noPadding}>
+      {children}
+    </PageStyle>
+  );
 };
 
 export default PageLayout;

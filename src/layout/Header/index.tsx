@@ -4,10 +4,14 @@ import { ActionIcon } from "@mantine/core";
 import { IconChevronLeft, IconPlus } from "@tabler/icons";
 import { useTheme } from "@emotion/react";
 
-const Header = () => {
+interface Props {
+  noPadding?: boolean;
+}
+
+const Header = ({ noPadding = true }: Props) => {
   const theme = useTheme();
   return (
-    <HeaderLayout>
+    <HeaderLayout noPadding={noPadding}>
       <LeftSection>
         <ActionIcon size={32} onClick={() => history.back()}>
           <IconChevronLeft color={theme.colors.deepBlue[0]} />
