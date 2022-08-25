@@ -42,4 +42,9 @@ export const TypographyLayout = styled.h3<TypographyLayoutProps>`
   color: ${({ color }) => color};
   font-family: "Noto Sans KR";
   font-weight: ${({ weight }) => weight};
+  ${({ lineHeight }) =>
+    lineHeight &&
+    css`
+      line-height: ${lineHeight}px;
+    `};
 `;

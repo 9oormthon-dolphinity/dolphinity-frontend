@@ -1,0 +1,40 @@
+import { ActionIcon } from "@mantine/core";
+import { useState } from "react";
+import { IconBrandTelegram } from "@tabler/icons";
+import styled from "@emotion/styled";
+
+const CustomInputWrapper = styled.div`
+  padding: 20px 30px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: ${({ theme }) => theme.colors.deepBlue[0]};
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+`;
+
+const CustomInput = styled.input`
+  border: none;
+  background-color: ${({ theme }) => theme.colors.deepBlue[0]};
+  color: white;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const PostCommentInput = () => {
+  const [input, setInput] = useState("");
+  return (
+    <CustomInputWrapper>
+      <CustomInput value={input} onChange={(e) => setInput(e.target.value)} />
+      <ActionIcon variant="transparent">
+        <IconBrandTelegram color="white" />
+      </ActionIcon>
+    </CustomInputWrapper>
+  );
+};
+
+export default PostCommentInput;

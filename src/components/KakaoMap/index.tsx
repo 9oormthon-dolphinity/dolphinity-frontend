@@ -115,7 +115,6 @@ export default function KakaoMap({ latitude, longitude }: MapProps) {
             <ModalBottom>
               <ModalBottomData>
                 <ModalDataIcon>
-                  {/* <IconHeart size={12} color={theme.colors.deepBlue[0]} /> */}
                   <AiFillHeart
                     color={theme.colors.deepBlue[0]}
                     size={11}

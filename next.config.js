@@ -3,6 +3,10 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
+  images: {
+    domains: ["dolphinity-server.run.goorm.io"],
+    minimumCacheTTL: 60,
+  },
 };
 
 module.exports = nextConfig;
