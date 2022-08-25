@@ -4,6 +4,8 @@ import Background from "components/intro/Background";
 import IntroHeader from "components/intro/IntroHeader";
 import IntroFooter from "components/intro/IntroFooter";
 
+import IntroFocus from "components/intro/IntroFocus";
+
 export default function Intro() {
   return (
     <PageLayout center={false}>
@@ -14,6 +16,7 @@ export default function Intro() {
       </Head>
       <Background />
       <IntroHeader />
+      <IntroFocus />
       <IntroFooter />
     </PageLayout>
   );
