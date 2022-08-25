@@ -2,15 +2,9 @@ import styled from "@emotion/styled";
 import { Modal } from "@mantine/core";
 
 export const MapContainer = styled.div`
-  min-width: 400px;
-  height: 80vh;
-`;
-
-export const MapWrapper = styled.div`
+  margin: 6px 12px 0 12px;
+  height: 600px;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const EditModal = styled(Modal)`
