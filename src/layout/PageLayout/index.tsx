@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import { css } from "@emotion/react";
 
 interface Props {
   children: ReactNode;
   center?: boolean;
+  noPadding?: boolean;
 }
 
 const PageStyle = styled.div<{ center: boolean; noPadding: boolean }>`
