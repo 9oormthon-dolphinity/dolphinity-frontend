@@ -1,13 +1,14 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
+import { css } from "@emotion/react";
 
 interface Props {
   children: ReactNode;
   center?: boolean;
 }
 
-const PageStyle = styled.div<{ center: boolean }>`
+const PageStyle = styled.div<{ center: boolean; noPadding: boolean }>`
   display: flex;
   flex-direction: column;
   ${({ center }) =>
@@ -16,17 +17,22 @@ const PageStyle = styled.div<{ center: boolean }>`
       align-items: center;
     `}
   background-color: ${({ theme }) => theme.colors.deepGray[0]};
-  max-width: 400px;
+  width: 400px;
   min-height: 100vh;
-  @media (min-width: 400px) {
+  position: relative;
+  ${({ noPadding }) =>
+    !noPadding &&
+    css`
+      padding: 0px 25px;
+    `}
+  @media (max-width: 400px) {
     width: 100%;
   }
 `;
 
-const PageLayout = ({ children, center = true }: Props) => {
+const PageLayout = ({ children, center = true, noPadding = false }: Props) => {
   return (
-    <PageStyle center={center}>
-      <div style={{ marginBottom: "100px" }}>sdfdsf</div>
+    <PageStyle center={center} noPadding={noPadding}>
       {children}
     </PageStyle>
   );

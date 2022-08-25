@@ -1,21 +1,18 @@
-import { IconBellPlus, Icon3dCubeSphere, IconAccessible, IconAlertTriangle } from "@tabler/icons";
-import FloatingButton from "components/FloatingButton";
+import Clock from "components/Clock";
 import KakaoMap from "components/KakaoMap";
-import PageLayout from "layout/PageLayout";
 
-const actions = [
-  { label: "About", icon: <IconBellPlus />, onClick: console.log },
-  { label: "Profile", icon: <Icon3dCubeSphere />, onClick: console.log },
-  { label: "Picture", icon: <IconAccessible />, onClick: console.log },
-  { label: "Trash", icon: <IconAlertTriangle />, onClick: console.log },
-];
+import Header from "layout/Header";
+import PageLayout from "layout/PageLayout";
+import SubHeader from "layout/SubHeader";
 
 const Main = () => {
   return (
-    <PageLayout>
+    <PageLayout noPadding>
+      <Header noPadding={false} />
+      <SubHeader />
+      <Clock />
       <div style={{ width: "400px", height: "600px", position: "relative" }}>
         <KakaoMap latitude={33.450701} longitude={126.570667} />
-        <FloatingButton actions={actions} />
       </div>
     </PageLayout>
   );
