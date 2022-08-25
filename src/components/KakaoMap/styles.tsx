@@ -14,6 +14,8 @@ export const EditModal = styled(Modal)`
   }
   .mantine-Modal-body {
     border-radius: 0 0 10px 0;
+    // width: 200px;
+    // height: 240px;
   }
   .mantine-Modal-header {
     background: green;
@@ -22,9 +24,9 @@ export const EditModal = styled(Modal)`
 `;
 
 export const ModalImage = styled.div`
-  width: 194px;
-  heignt: 134px;
-  background-color: red;
+  width: 100%;
+  heignt: 70px;
+  position: relative;
 `;
 
 export const ModalContents = styled.div`
@@ -33,12 +35,15 @@ export const ModalContents = styled.div`
 `;
 
 export const ModalTitle = styled.div`
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 20px;
+  color: ${({ theme }) => theme.colors.deepBlue[0]};
 `;
 
 export const ModalAddress = styled.div`
-  font-size: 11px;
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.deepBlue[0]};
+  font-weight: 500;
 `;
 
 export const ModalBottom = styled.div`
@@ -52,9 +57,10 @@ export const ModalBottomData = styled.div`
 
 export const ModalDetailBtn = styled.button`
   background-color: #285ba9;
-  font-size: 8px;
+  font-size: 12px;
+  padding: 5px;
   margin-top: 18px;
-  border-radius: 10px;
+  border-radius: 12px;
   color: white;
   border: none;
 `;

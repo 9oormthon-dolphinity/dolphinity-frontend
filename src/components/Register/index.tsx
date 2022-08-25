@@ -16,6 +16,7 @@ import {
   TopDiv,
 } from "./styles";
 import { apiAxios } from "utils/commonAxios";
+import { yearMonthDay } from "utils/date";
 
 export default function Register() {
   const theme = useTheme();
@@ -59,7 +60,22 @@ export default function Register() {
     console.log(title);
     console.log(contents);
     console.log(address);
-    console.log(date);
+    console.log(yearMonthDay(String(date)));
+
+    try {
+      const res = await apiAxios.post("/boards/register", {
+        title,
+        address: address,
+        lat: latitude,
+        lng: longitude,
+        situation: contents,
+        discovery: date,
+        like: 0,
+      });
+      console.log("res : ", res);
+    } catch (err) {
+      console.log("err : ", err);
+    }
   };
 
   const onUploadImage = useCallback(async (file: File | null) => {
@@ -68,15 +84,7 @@ export default function Register() {
     }
 
     const formData = new FormData();
-    formData.append("file", file);
-
-    console.log("formData : ");
-    for (const key of formData.keys()) {
-      console.log("key : ", key);
-    }
-    for (const value of formData.values()) {
-      console.log("value : ", value);
-    }
+    formData.append("image", file);
     try {
       const res = await apiAxios.post("/boards/upload", formData, {
         headers: { "Content-Type": "multipart/form-data", "Access-Control-Allow-Origin": "*" },
