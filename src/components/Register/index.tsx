@@ -4,7 +4,7 @@ import "dayjs/locale/ko";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { FormEvent, MouseEvent, useCallback, useEffect, useState } from "react";
 import { FileButton } from "@mantine/core";
 import { IconPlus } from "@tabler/icons";
 import {
@@ -13,9 +13,9 @@ import {
   RegisterBtn,
   RegisterContents,
   RegisterWrapper,
-  TextAreaDiv,
   TopDiv,
 } from "./styles";
+import { apiAxios } from "utils/commonAxios";
 
 export default function Register() {
   const theme = useTheme();
@@ -27,6 +27,7 @@ export default function Register() {
     border-radius: 17px;
     border: none;
     line-height: 68px;
+    cursor: pointer;
 
     svg {
       color: white;
@@ -39,10 +40,53 @@ export default function Register() {
   `;
   const [address, setAddress] = useState<string>("");
 
-  const [, setFile] = useState<File | null>(null);
+  const [title, setTitle] = useState<string>("");
+  const [contents, setContents] = useState<string>("");
+  const [date, setDate] = useState<Date | null>(new Date());
 
   const longitude = "126.570667";
   const latitude = "33.450701";
+
+  const handleTitle = (e: FormEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value);
+  };
+
+  const handleContents = (e: FormEvent<HTMLInputElement>) => {
+    setContents(e.currentTarget.value);
+  };
+
+  const handleClickSubmitBtn = async (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(title);
+    console.log(contents);
+    console.log(address);
+    console.log(date);
+  };
+
+  const onUploadImage = useCallback(async (file: File | null) => {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    console.log("formData : ");
+    for (const key of formData.keys()) {
+      console.log("key : ", key);
+    }
+    for (const value of formData.values()) {
+      console.log("value : ", value);
+    }
+    try {
+      const res = await apiAxios.post("/boards/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data", "Access-Control-Allow-Origin": "*" },
+        withCredentials: true,
+      });
+      console.log("res : ", res);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   const getAddress = async () => {
     try {
@@ -51,7 +95,7 @@ export default function Register() {
           `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${longitude}&y=${latitude}`,
           {
             headers: {
-              Authorization: "KakaoAK dff659523aede6fed1e24d03c3da3a3b", // REST API 키
+              Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAOMAP_REST_API_APPKEY}`, // REST API 키
             },
           }
         )
@@ -86,7 +130,21 @@ export default function Register() {
           <Typography variant="paragraph" color={theme.colors.deepGray[1]} weight={700}>
             제목을 입력하세요.
           </Typography>
-          <TextAreaDiv style={{ resize: "none" }} placeholder="발견 상황을 입력해주세요." />
+          <InputDiv
+            type="text"
+            placeholder="제목을 입력해주세요."
+            value={title}
+            onInput={handleTitle}
+          ></InputDiv>
+          <Typography variant="paragraph" color={theme.colors.deepGray[1]} weight={700}>
+            내용을 입력하세요.
+          </Typography>
+          <InputDiv
+            type="text"
+            placeholder="발견 상황을 입력해주세요."
+            value={contents}
+            onInput={handleContents}
+          ></InputDiv>
           <Typography variant="paragraph" color={theme.colors.deepGray[1]} weight={700}>
             목격 위치
           </Typography>
@@ -101,18 +159,20 @@ export default function Register() {
             inputFormat="YYYY년 MM월 DD일"
             labelFormat="MM/YYYY"
             defaultValue={new Date()}
+            value={date}
+            onChange={setDate}
           />
           <Typography variant="paragraph" color={theme.colors.deepGray[1]} weight={700}>
             사진 첨부
           </Typography>
-          <FileButton onChange={setFile} accept="image/png,image/jpeg">
+          <FileButton onChange={(file) => onUploadImage(file)} accept="image/png,image/jpeg">
             {(props) => (
               <AttachBtn {...props}>
                 <IconPlus />
               </AttachBtn>
             )}
           </FileButton>
-          <RegisterBtn type="button">
+          <RegisterBtn type="button" onClick={handleClickSubmitBtn}>
             <Typography variant="paragraph" color={theme.colors.deepGray[1]} weight={700}>
               등록하기
             </Typography>

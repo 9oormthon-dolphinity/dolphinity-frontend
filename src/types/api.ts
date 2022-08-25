@@ -11,7 +11,11 @@ export interface Comment {
   content: string;
 }
 
-export interface Post {
+export interface Post extends Ping {
+  reviews: Array<Comment>;
+}
+
+export interface Ping {
   id: number;
   createdAt: string;
   updateAt: string | null;
@@ -24,5 +28,4 @@ export interface Post {
   situation: string;
   discovery: string;
   like: number;
-  reviews: Array<Comment>;
 }

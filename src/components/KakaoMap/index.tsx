@@ -17,16 +17,20 @@ import {
   ModalTitle,
 } from "./styles";
 import Typography from "components/Typography";
+import { Ping } from "types/api";
 
 export interface MapProps {
   latitude: number;
   longitude: number;
+  pins: Ping[];
 }
 
-export default function KakaoMap({ latitude, longitude }: MapProps) {
+export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
   const [opened, setOpened] = useState(false);
   const theme = useTheme();
   const [mapLevel, setMapLevel] = useState(10);
+
+  console.log(pins);
 
   const ModalDataIcon = styled.div`
     font-size: 11px;
@@ -48,7 +52,7 @@ export default function KakaoMap({ latitude, longitude }: MapProps) {
     const mapScript = document.createElement("script");
 
     mapScript.async = true;
-    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`;
+    mapScript.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`;
 
     document.head.appendChild(mapScript);
 
@@ -61,43 +65,21 @@ export default function KakaoMap({ latitude, longitude }: MapProps) {
         };
         const map = new window.kakao.maps.Map(container, options);
 
-        const positions = [
-          {
-            id: 0,
-            content: "<div>카카오</div>",
-            latlng: new window.kakao.maps.LatLng(33.450705, 126.570677),
-          },
-          {
-            id: 1,
-            content: "<div>생태연못</div>",
-            latlng: new window.kakao.maps.LatLng(33.450936, 126.569477),
-          },
-          {
-            id: 2,
-            content: "<div>텃밭</div>",
-            latlng: new window.kakao.maps.LatLng(33.450879, 126.56994),
-          },
-          {
-            id: 3,
-            content: "<div>근린공원</div>",
-            latlng: new window.kakao.maps.LatLng(33.451393, 126.570738),
-          },
-        ];
-
-        for (let i = 0; i < positions.length; i++) {
+        for (let i = 0; i < pins.length; i++) {
           // 마커를 생성합니다
           const marker = new window.kakao.maps.Marker({
             map: map, // 마커를 표시할 지도
-            position: positions[i].latlng, // 마커의 위치
+            position: new window.kakao.maps.LatLng(pins[i].lat, pins[i].lng), // 마커의 위치
             clickable: true,
           });
 
           marker.setMap(map);
 
           kakao.maps.event.addListener(marker, "click", function () {
-            const moveLatLon = positions[i].latlng;
+            const moveLatLon = new window.kakao.maps.LatLng(pins[i].lat, pins[i].lng);
             map.panTo(moveLatLon);
             setOpened(true);
+            console.log(i);
           });
         }
       });
@@ -105,7 +87,7 @@ export default function KakaoMap({ latitude, longitude }: MapProps) {
     mapScript.addEventListener("load", onLoadKakaoMap);
 
     return () => mapScript.removeEventListener("load", onLoadKakaoMap);
-  }, [longitude, latitude, mapLevel]);
+  }, [longitude, latitude, mapLevel, pins]);
 
   return (
     <MapContainer id="map">

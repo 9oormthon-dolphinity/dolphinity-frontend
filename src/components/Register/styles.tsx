@@ -23,14 +23,6 @@ export const RegisterWrapper = styled.div`
   position: relative;
 `;
 
-export const TextAreaDiv = styled.textarea`
-  width: 100%;
-  height: 150px;
-  border-radius: 5px;
-  margin: 15px 0 18px;
-  padding: 14px 17px;
-`;
-
 export const InputDiv = styled.input`
   width: 100%;
   border-radius: 15px;
@@ -50,6 +42,7 @@ export const RegisterBtn = styled.button`
   display: block;
   position: absolute;
   bottom: 80px;
+  cursor: pointer;
 `;
 
 export const EditDataPicker = styled(DatePicker)`
