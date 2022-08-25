@@ -34,6 +34,7 @@ const App = ({ Component, pageProps }: AppProps) => (
             h2: { fontSize: 32, lineHeight: 36 },
             h3: { fontSize: 24, lineHeight: 24 },
             h5: { fontSize: 14, lineHeight: 12 },
+            h6: { fontSize: 11, lineHeight: 12 },
           },
         },
       }}

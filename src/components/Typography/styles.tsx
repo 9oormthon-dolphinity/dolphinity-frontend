@@ -25,6 +25,12 @@ const paragraphStyle = (theme: Theme) => css`
   margin: 0px;
 `;
 
+const paragraph2Style = (theme: Theme) => css`
+  font-size: ${theme.headings.sizes.h6.fontSize}px;
+  line-height: ${theme.headings.sizes.h6.lineHeight}px;
+  margin: 0px;
+`;
+
 interface TypographyLayoutProps extends TypographyProps {}
 
 export const TypographyLayout = styled.h3<TypographyLayoutProps>`
@@ -32,6 +38,7 @@ export const TypographyLayout = styled.h3<TypographyLayoutProps>`
   ${({ theme, variant }) => variant === "h2" && h2Style(theme)}
   ${({ theme, variant }) => variant === "h3" && h3Style(theme)}
   ${({ theme, variant }) => variant === "paragraph" && paragraphStyle(theme)}
+  ${({ theme, variant }) => variant === "paragraph2" && paragraph2Style(theme)}
   color: ${({ color }) => color};
   font-family: "Noto Sans KR";
   font-weight: ${({ weight }) => weight};
