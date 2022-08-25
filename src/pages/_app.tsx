@@ -1,6 +1,7 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
+import { CustomFonts } from "styles/globalFonts";
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>
@@ -35,7 +36,7 @@ const App = ({ Component, pageProps }: AppProps) => (
         },
 
         headings: {
-          fontFamily: "Roboto, sans-serif",
+          fontFamily: "Noto Sans KR",
           sizes: {
             h1: { fontSize: 38, lineHeight: 57 },
             h2: { fontSize: 32, lineHeight: 48 },
@@ -45,6 +46,7 @@ const App = ({ Component, pageProps }: AppProps) => (
         },
       }}
     >
+      <CustomFonts />
       <Component {...pageProps} />
     </MantineProvider>
   </>

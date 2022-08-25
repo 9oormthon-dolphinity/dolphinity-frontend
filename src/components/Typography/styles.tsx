@@ -33,4 +33,6 @@ export const TypographyLayout = styled.h3<TypographyLayoutProps>`
   ${({ theme, variant }) => variant === "h3" && h3Style(theme)}
   ${({ theme, variant }) => variant === "paragraph" && paragraphStyle(theme)}
   color: ${({ color }) => color};
+  font-family: "Noto Sans KR";
+  font-weight: ${({ weight }) => weight};
 `;

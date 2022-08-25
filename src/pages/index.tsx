@@ -16,7 +16,7 @@ export default function Home() {
       </Head>
       <Title title="NextJS TypeScript Template" />
       <Typography variant="h1" color={theme.colors.deepBlue[1]}>
-        deepBlue 1
+        제주 남방큰돌고래
       </Typography>
       <Typography variant="h1" color={theme.colors.deepBlue[5]}>
         deepBlue 5

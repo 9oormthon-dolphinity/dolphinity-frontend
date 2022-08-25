@@ -8,6 +8,7 @@ export const globalStyles = (
       },
       body: {
         margin: 0,
+        fontFamily: "'Noto Sans KR', sans-serif",
       },
     })}
   />
