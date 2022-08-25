@@ -14,7 +14,7 @@ const IntroFooter = () => {
         남방큰돌고래 인기 스팟 한눈에 보러가기
       </Typography>
       <ActionIcon onClick={() => router.push("/main")} size="xl">
-        <IconArrowRight size={36} color={theme.colors.deepBlue[0]} />
+        <IconArrowRight size={64} color={theme.colors.deepBlue[0]} />
       </ActionIcon>
     </IntroFooterWrapper>
   );

@@ -4,6 +4,7 @@ import Image from "components/Image";
 const LogoWrapper = styled.div`
   position: relative;
   margin-left: -12px;
+  line-height: 1;
 `;
 
 const Logo = () => {

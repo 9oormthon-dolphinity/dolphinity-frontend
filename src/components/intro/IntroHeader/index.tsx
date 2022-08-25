@@ -1,4 +1,4 @@
-import Logo from "components/intro/Logo";
+import Logo from "components/Logo";
 import Typography from "components/Typography";
 import { useTheme } from "@emotion/react";
 
