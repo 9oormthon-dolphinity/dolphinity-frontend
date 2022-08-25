@@ -17,7 +17,7 @@ const PageStyle = styled.div<{ center: boolean; noPadding: boolean }>`
       align-items: center;
     `}
   background-color: ${({ theme }) => theme.colors.deepGray[0]};
-  width: 400px;
+  width: 500px;
   min-height: 100vh;
   position: relative;
   ${({ noPadding }) =>
@@ -25,7 +25,7 @@ const PageStyle = styled.div<{ center: boolean; noPadding: boolean }>`
     css`
       padding: 0px 25px;
     `}
-  @media (max-width: 400px) {
+  @media (max-width: 500px) {
     width: 100%;
   }
 `;

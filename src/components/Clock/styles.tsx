@@ -9,7 +9,7 @@ const ClockWrapper = styled.div`
 `;
 
 const ClockLine = styled.hr`
-  width: 65%;
+  width: 73%;
   margin: 0;
   margin-right: 20px;
   justify-self: flex-end;

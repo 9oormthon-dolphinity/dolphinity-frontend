@@ -11,7 +11,7 @@ const Main = () => {
       <Header noPadding={false} />
       <SubHeader />
       <Clock />
-      <div style={{ width: "400px", height: "600px", position: "relative" }}>
+      <div style={{ width: "500px", height: "600px", position: "relative" }}>
         <KakaoMap latitude={33.450701} longitude={126.570667} />
       </div>
     </PageLayout>
