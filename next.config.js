@@ -4,7 +4,7 @@ const nextConfig = {
     emotion: true,
   },
   images: {
-    domains: ["dolphinity-server.run.goorm.io", "http://localhost:5000"],
+    domains: ["dolphinity-server.run.goorm.io", "localhost"],
     minimumCacheTTL: 60,
   },
 };
