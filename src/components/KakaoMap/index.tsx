@@ -113,15 +113,15 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
       ) : (
         <MapContainer id="map">
           <div style={{ position: "absolute", zIndex: "5", bottom: "10px", left: "10px" }}>
-            <button type="button" data-zoom={+1} onClick={zoomInOut}>
+            <EditButton type="button" data-zoom={+1} onClick={zoomInOut}>
               <IconMinus />
-            </button>
-            <button type="button" data-zoom={-1} onClick={zoomInOut}>
+            </EditButton>
+            <EditButton type="button" data-zoom={-1} onClick={zoomInOut}>
               <IconPlus />
-            </button>
-            <button type="button" id="moveBtn">
+            </EditButton>
+            <EditButton type="button" id="moveBtn">
               <IconCurrentLocation />
-            </button>
+            </EditButton>
           </div>
           <EditModal
             centered
@@ -167,3 +167,10 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
     </>
   );
 }
+
+const EditButton = styled.button`
+  svg {
+    line-height: 60px;
+    color: ${({ theme }) => theme.colors.deepBlue[0]};
+  }
+`;

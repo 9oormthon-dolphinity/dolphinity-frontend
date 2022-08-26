@@ -5,6 +5,7 @@ export const MapContainer = styled.div`
   margin: 6px 12px 0 12px;
   height: 600px;
   position: relative;
+  padding: 0 40px;
 `;
 
 export const EditModal = styled(Modal)`
@@ -14,8 +15,6 @@ export const EditModal = styled(Modal)`
   }
   .mantine-Modal-body {
     border-radius: 0 0 10px 0;
-    // width: 200px;
-    // height: 240px;
   }
   .mantine-Modal-header {
     background: green;

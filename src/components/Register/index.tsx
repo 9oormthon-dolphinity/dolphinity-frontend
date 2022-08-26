@@ -29,7 +29,7 @@ const AttachBtn = styled.button`
 
   svg {
     color: white;
-    background-color: ${({ theme }) => theme.colors.deepBlue[0]}
+    background-color: ${({ theme }) => theme.colors.deepBlue[0]};
     border-radius: 20px;
     width: 32px;
     height: 32px;
@@ -164,7 +164,7 @@ export default function Register() {
           <FileButton onChange={(file) => onUploadImage(file)} accept="image/png,image/jpeg">
             {(props) => (
               <AttachBtn {...props}>
-                <IconPlus />
+                <IconPlus color={theme.colors.deepBlue[0]} />
               </AttachBtn>
             )}
           </FileButton>

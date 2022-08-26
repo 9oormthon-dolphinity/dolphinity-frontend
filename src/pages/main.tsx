@@ -1,4 +1,5 @@
 import Clock from "components/Clock";
+import Head from "next/head";
 import KakaoMap from "components/KakaoMap";
 import Header from "layout/Header";
 import PageLayout from "layout/PageLayout";
@@ -51,17 +52,30 @@ const Main = ({ pins }: Props) => {
         const lon = position.coords.longitude; // 경도
         setNowLat(lat);
         setNowLon(lon);
-        console.log(lat, lon);
       });
     }
   }, []);
 
   return (
     <PageLayout noPadding>
+      <Head>
+        <title>Dolfinity</title>
+        <meta name="description" content="9oormthon Dolfinity" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header noPadding={false} />
       <SubHeader />
       <Clock />
-      <div style={{ width: "500px", height: "600px", position: "relative" }}>
+      <div
+        style={{
+          width: "100%",
+          height: "600px",
+          position: "relative",
+          padding: "0px 8px",
+          borderRadius: "10px",
+          overflow: "hidden",
+        }}
+      >
         <KakaoMap latitude={nowLat} longitude={nowLon} pins={pins} />
       </div>
       {!drawOpen && <FloatingButton actions={actions} />}
