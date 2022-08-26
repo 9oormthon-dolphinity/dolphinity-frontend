@@ -1,4 +1,5 @@
 import Clock from "components/Clock";
+import Head from "next/head";
 import KakaoMap from "components/KakaoMap";
 import Header from "layout/Header";
 import PageLayout from "layout/PageLayout";
@@ -58,6 +59,11 @@ const Main = ({ pins }: Props) => {
 
   return (
     <PageLayout noPadding>
+      <Head>
+        <title>Dolfinity</title>
+        <meta name="description" content="9oormthon Dolfinity" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header noPadding={false} />
       <SubHeader />
       <Clock />

@@ -112,7 +112,7 @@ export default function KakaoMap({ latitude, longitude, pins }: MapProps) {
         </div>
       ) : (
         <MapContainer id="map">
-          <div style={{ position: "absolute", zIndex: "5", bottom: "10px", left: "10px" }}>
+          <div style={{ position: "absolute", zIndex: "5", bottom: "40px", left: "10px" }}>
             <button type="button" data-zoom={+1} onClick={zoomInOut}>
               <IconMinus />
             </button>
