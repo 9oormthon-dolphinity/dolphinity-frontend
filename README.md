@@ -8,6 +8,10 @@
   <br>
 </p>
 
+## 프로젝트 시연영상
+
+[프로젝트 시연영상](https://www.youtube.com/watch?v=aFNKPivpl0A)
+
 ## 디자인 시안
 
 <img width="446" alt="image" src="https://user-images.githubusercontent.com/38908080/186813907-fec7d92e-add2-4cb5-ae02-5133bf05ebd7.png">
